@@ -24,10 +24,10 @@ const saveInput = event => {
 
   switch (inputField) {
     case 'INPUT':
-      formData.email = event.target.value;
+      formData.email = event.target.value.trim();
       break;
     case 'TEXTAREA':
-      formData.message = event.target.value;
+      formData.message = event.target.value.trim();
       break;
   }
 
@@ -38,7 +38,7 @@ const submitForm = event => {
   event.preventDefault();
 
   if (Object.values(formData).includes('')) {
-    console.log('Fill please all fields');
+    window.alert('Fill please all fields');
     return;
   }
 
