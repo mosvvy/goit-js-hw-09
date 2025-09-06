@@ -1,5 +1,10 @@
 'use strict';
 
+// Описаний в документації
+import SimpleLightbox from 'simplelightbox';
+// Додатковий імпорт стилів
+import 'simplelightbox/dist/simple-lightbox.min.css';
+
 const images = [
   {
     preview:
@@ -65,3 +70,45 @@ const images = [
     description: 'Lighthouse Coast Sea',
   },
 ];
+
+const glaleryContainer = document.querySelector('.gallery');
+
+const loadGallery = () => {
+  const imgListItemCollection = [];
+
+  for (const {
+    preview: imgPreview,
+    original: imgOriginal,
+    description: imgAlt,
+  } of images) {
+    const imgElement = document.createElement('img');
+    imgElement.classList.add('gallery-image');
+    imgElement.src = imgPreview;
+    imgElement.alt = imgAlt;
+
+    const linkElement = document.createElement('a');
+    linkElement.classList.add('gallery-link');
+    linkElement.href = imgOriginal; // FIX LATER
+    linkElement.append(imgElement);
+
+    const imgListItem = document.createElement('li');
+    imgListItem.classList.add('gallery-item');
+    imgListItem.append(linkElement);
+
+    imgListItemCollection.push(imgListItem);
+  }
+
+  glaleryContainer.append(...imgListItemCollection);
+};
+
+loadGallery();
+
+let gallery = new SimpleLightbox('.gallery a');
+
+gallery.on('show.simplelightbox', function () {
+  // Do something…
+});
+
+gallery.on('error.simplelightbox', function (e) {
+  console.log(e); // Some usefull information
+});
