@@ -81,24 +81,19 @@ const loadGallery = () => {
     original: imgOriginal,
     description: imgAlt,
   } of images) {
-    const imgElement = document.createElement('img');
-    imgElement.classList.add('gallery-image');
-    imgElement.src = imgPreview;
-    imgElement.alt = imgAlt;
-
-    const linkElement = document.createElement('a');
-    linkElement.classList.add('gallery-link');
-    linkElement.href = imgOriginal; // FIX LATER
-    linkElement.append(imgElement);
-
-    const imgListItem = document.createElement('li');
-    imgListItem.classList.add('gallery-item');
-    imgListItem.append(linkElement);
-
-    imgListItemCollection.push(imgListItem);
+    imgListItemCollection.push(`<li class="gallery-item">
+  <a class="gallery-link" href="${imgOriginal}">
+    <img
+      class="gallery-image"
+      src="${imgPreview}"
+      data-source="${imgOriginal}"
+      alt="${imgAlt}"
+    />
+  </a>
+</li>`);
   }
 
-  glaleryContainer.append(...imgListItemCollection);
+  glaleryContainer.innerHTML = imgListItemCollection.join('\n');
 };
 
 loadGallery();
@@ -106,12 +101,5 @@ loadGallery();
 const gallery = new SimpleLightbox('.gallery a', {
   captionsData: 'alt',
   captionDelay: 250,
-});
-
-gallery.on('show.simplelightbox', function () {
-  // Do something…
-});
-
-gallery.on('error.simplelightbox', function (e) {
-  console.log(e); // Some usefull information
+  overlayOpacity: 0.8,
 });
