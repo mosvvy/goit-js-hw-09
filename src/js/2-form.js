@@ -51,7 +51,7 @@ const submitForm = event => {
   form.reset();
 };
 
-form.addEventListener('input', saveInput);
-form, addEventListener('submit', submitForm);
-
 loadFromLocalStorage();
+
+form.addEventListener('input', saveInput);
+form.addEventListener('submit', submitForm);
